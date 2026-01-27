@@ -19,4 +19,9 @@ public class DeliveryController {
     public Mono<String> create(@RequestBody DeliveryRequest request) {
         return service.create(request);
     }
+
+    @GetMapping("/status/{productId}")
+    public Mono<String> status(@PathVariable Long productId) {
+        return service.getStatus(productId);
+    }
 }
