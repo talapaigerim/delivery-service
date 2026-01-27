@@ -1,0 +1,6 @@
+CREATE TABLE IF NOT EXISTS deliveries (
+    id BIGINT AUTO_INCREMENT PRIMARY KEY,
+    product_id BIGINT NOT NULL,
+    address VARCHAR(255) NOT NULL,
+    status VARCHAR(50)
+    );

@@ -2,25 +2,26 @@ package com.example.deliveryservice.controller;
 
 import com.example.deliveryservice.dto.DeliveryRequest;
 import com.example.deliveryservice.service.DeliveryService;
-import org.springframework.http.ResponseEntity;
-import org.springframework.web.bind.annotation.PostMapping;
-import org.springframework.web.bind.annotation.RequestBody;
-import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RestController;
+import org.springframework.web.bind.annotation.*;
+import reactor.core.publisher.Mono;
 
 @RestController
-@RequestMapping("/delivery")
+@RequestMapping("/api/deliveries")
 public class DeliveryController {
 
-    private final DeliveryService deliveryService;
+    private final DeliveryService service;
 
-    public DeliveryController(DeliveryService deliveryService) {
-        this.deliveryService = deliveryService;
+    public DeliveryController(DeliveryService service) {
+        this.service = service;
     }
 
     @PostMapping
-    public ResponseEntity<String> createDelivery(@RequestBody DeliveryRequest request) {
-        deliveryService.createDelivery(request);
-        return ResponseEntity.ok("OK");
+    public Mono<String> create(@RequestBody DeliveryRequest request) {
+        return service.create(request);
+    }
+
+    @GetMapping("/status/{productId}")
+    public Mono<String> status(@PathVariable Long productId) {
+        return service.getStatus(productId);
     }
 }
